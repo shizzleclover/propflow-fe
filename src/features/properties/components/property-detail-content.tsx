@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { Property } from '@/features/properties/api/properties-api'
 import { PropertyGallery } from '@/features/properties/components/property-media'
+import { formatMoneyNGN } from '@/lib/formatters/money'
 
 function agentLabel(property: Property) {
   const a = property.assignedAgentId
@@ -40,9 +41,9 @@ export function PropertyDetailContent({ property, footer, showGallery = true }: 
         </div>
         <div className="text-right">
           <p className="text-3xl font-semibold tabular-nums text-sky-950">
-            ${property.price?.toLocaleString?.() ?? property.price}
+            {formatMoneyNGN(property.price)}
             {(property.listingCategory ?? 'SALE') === 'RENT' ? (
-              <span className="text-lg font-medium text-muted-foreground"> /mo</span>
+              <span className="text-lg font-medium text-muted-foreground"> /night</span>
             ) : null}
           </p>
           <div className="mt-2 flex flex-wrap justify-end gap-2">

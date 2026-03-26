@@ -29,7 +29,7 @@ export function PropertyCreatePage() {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [listingCategory, setListingCategory] = useState<'SALE' | 'RENT'>('SALE')
+  const [listingCategory, setListingCategory] = useState<'SALE' | 'RENT'>('RENT')
   const [bookingEnabled, setBookingEnabled] = useState(true)
   const [assignedAgentId, setAssignedAgentId] = useState('')
   const [price, setPrice] = useState('')
@@ -232,7 +232,7 @@ export function PropertyCreatePage() {
 
         <div>
           <label className="text-sm font-medium text-sky-950" htmlFor="price">
-            Price {listingCategory === 'RENT' ? '(per month)' : ''}
+            Price {listingCategory === 'RENT' ? '(per night)' : ''}
           </label>
           <input
             className={inputClass}

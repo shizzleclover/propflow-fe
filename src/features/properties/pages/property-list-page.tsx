@@ -5,6 +5,7 @@ import { fetchProperties } from '@/features/properties/api/properties-api'
 import { PropertyCardCover } from '@/features/properties/components/property-media'
 import { PageHeader } from '@/components/shared/page-header'
 import { useMe } from '@/lib/auth/session'
+import { formatMoneyNGN } from '@/lib/formatters/money'
 
 export function PropertyListPage() {
   const { data: user } = useMe()
@@ -92,8 +93,8 @@ export function PropertyListPage() {
                 </div>
 
                 <p className="mt-4 text-2xl font-semibold tabular-nums text-sky-950">
-                  ${property.price?.toLocaleString?.() ?? property.price}
-                  {isRent ? <span className="text-base font-medium text-muted-foreground"> /mo</span> : null}
+                  {formatMoneyNGN(property.price)}
+                  {isRent ? <span className="text-base font-medium text-muted-foreground"> /night</span> : null}
                 </p>
               </div>
             </Link>
