@@ -49,7 +49,7 @@ export function LandingPage() {
     <div className="flex min-h-screen flex-col bg-background font-sans text-foreground">
       <header className="border-b border-border bg-card">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-[4.25rem] sm:px-6">
-          <span className="text-xl font-semibold tracking-tight">PropFlow</span>
+          <span className="text-xl font-semibold tracking-tight">Nexa Homes</span>
           <nav className="flex items-center gap-4 text-sm font-medium sm:gap-6">
             <Link className="text-muted-foreground transition-colors hover:text-foreground" to="/login">
               Sign in
@@ -139,7 +139,7 @@ export function LandingPage() {
 
       <footer className="border-t border-border bg-card py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-sm text-muted-foreground sm:flex-row sm:px-6">
-          <span className="font-semibold text-foreground">PropFlow</span>
+          <span className="font-semibold text-foreground">Nexa Homes</span>
           <div className="flex gap-6">
             <Link className="hover:text-foreground" to="/login">
               Sign in

@@ -33,7 +33,7 @@ export function AppShell() {
       <header className="sticky top-0 z-10 border-b border-sky-200/70 bg-white/90 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Link className="text-lg font-semibold tracking-tight text-sky-950" to={brandTo}>
-            PropFlow
+            Nexa Homes
           </Link>
           <nav className="flex flex-wrap items-center justify-end gap-1 sm:gap-2">
             {items
