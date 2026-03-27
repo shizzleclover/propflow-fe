@@ -66,7 +66,8 @@ export function LandingPage() {
 
       <main className="flex-1">
         <section className="border-b border-border bg-card px-4 py-16 sm:px-6 sm:py-24">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+            <div className="text-center lg:text-left">
             <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
               Real estate operations
             </p>
@@ -90,6 +91,33 @@ export function LandingPage() {
               >
                 Sign in
               </Link>
+            </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <img
+                alt="Modern home exterior"
+                className="h-40 w-full rounded-xl object-cover sm:h-56"
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80"
+              />
+              <img
+                alt="Bright living room"
+                className="h-40 w-full rounded-xl object-cover sm:h-56"
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=900&q=80"
+              />
+              <img
+                alt="Cozy bedroom interior"
+                className="h-40 w-full rounded-xl object-cover sm:h-56"
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80"
+              />
+              <img
+                alt="Luxury apartment interior"
+                className="h-40 w-full rounded-xl object-cover sm:h-56"
+                loading="lazy"
+                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+              />
             </div>
           </div>
         </section>

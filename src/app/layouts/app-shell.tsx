@@ -17,6 +17,7 @@ function buildNav(role?: Role): ShellNavItem[] {
     { to: '/staff/dashboard', label: 'Staff', roles: ['STAFF'] },
     { to: '/agent/bookings', label: 'Bookings', roles: ['AGENT'] },
     { to: '/admin/dashboard', label: 'Dashboard', roles: ['ADMIN'] },
+    { to: '/admin/listings', label: 'Manage listings', roles: ['ADMIN'] },
     { to: '/admin/users', label: 'Users', roles: ['ADMIN'] },
   ]
 }

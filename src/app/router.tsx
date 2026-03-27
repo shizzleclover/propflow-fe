@@ -14,6 +14,7 @@ import { AgentBookingsPage } from '@/features/bookings/pages/agent-bookings-page
 import { AdminDashboardPage } from '@/features/dashboard/pages/admin-dashboard-page'
 import { OverviewPage } from '@/features/dashboard/pages/overview-page'
 import { PropertyCreatePage } from '@/features/properties/pages/property-create-page'
+import { AdminListingsPage } from '@/features/properties/pages/admin-listings-page'
 import { StaffDashboardPage } from '@/features/dashboard/pages/staff-dashboard-page'
 import { UserManagementPage } from '@/features/users/pages/user-management-page'
 import { RegisterPage } from '@/features/auth/pages/register-page'
@@ -64,6 +65,7 @@ export const router = createBrowserRouter([
             children: [
               { path: '/admin/dashboard', element: <AdminDashboardPage /> },
               { path: '/admin/users', element: <UserManagementPage /> },
+              { path: '/admin/listings', element: <AdminListingsPage /> },
             ],
           },
         ],

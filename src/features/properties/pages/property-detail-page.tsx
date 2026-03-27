@@ -9,6 +9,16 @@ export function PropertyDetailPage() {
   const { id } = useParams<{ id: string }>()
   const { data: user } = useMe()
   const queryClient = useQueryClient()
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      if (!id) throw new Error('Missing property id')
+      await deleteProperty(id)
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['properties'] })
+      window.location.assign('/properties')
+    },
+  })
   const { data, isLoading, isError } = useQuery({
     queryKey: ['property', id],
     queryFn: () => fetchPropertyById(id!),
@@ -45,13 +55,6 @@ export function PropertyDetailPage() {
     user?.role === 'ADMIN' ||
     (user?.role === 'AGENT' &&
       (typeof data.assignedAgentId === 'object' ? data.assignedAgentId._id : data.assignedAgentId) === user.id)
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteProperty(data._id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['properties'] })
-      window.location.assign('/properties')
-    },
-  })
 
   return (
     <section>
