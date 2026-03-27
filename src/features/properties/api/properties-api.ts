@@ -70,3 +70,12 @@ export async function createProperty(payload: CreatePropertyPayload): Promise<Pr
   const { data } = await api.post<{ property: Property }>('/properties', payload)
   return data.property
 }
+
+export async function updateProperty(id: string, payload: Partial<CreatePropertyPayload & { status: string }>): Promise<Property> {
+  const { data } = await api.patch<{ property: Property }>(`/properties/${id}`, payload)
+  return data.property
+}
+
+export async function deleteProperty(id: string): Promise<void> {
+  await api.delete(`/properties/${id}`)
+}

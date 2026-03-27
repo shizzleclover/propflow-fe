@@ -31,18 +31,18 @@ export function AppShell() {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-10 border-b border-sky-200/70 bg-white/90 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/80">
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-3 py-2 sm:px-6">
           <Link className="text-lg font-semibold tracking-tight text-sky-950" to={brandTo}>
             Nexa Homes
           </Link>
-          <nav className="flex flex-wrap items-center justify-end gap-1 sm:gap-2">
+          <nav className="flex w-full items-center gap-1 overflow-x-auto pb-1 sm:w-auto sm:flex-wrap sm:justify-end sm:gap-2 sm:pb-0">
             {items
               .filter((item) => !item.roles || (role ? item.roles.includes(role) : false))
               .map((item) => (
                 <NavLink
                   className={({ isActive }) =>
                     [
-                      'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                      'whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-sky-100 text-sky-950'
                         : 'text-muted-foreground hover:bg-sky-50 hover:text-foreground',
@@ -60,7 +60,7 @@ export function AppShell() {
               </span>
             ) : null}
             <button
-              className="ml-1 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+              className="ml-1 whitespace-nowrap rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-muted"
               onClick={() => {
                 clearAccessToken()
                 window.location.assign('/login')
