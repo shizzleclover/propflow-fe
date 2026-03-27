@@ -8,6 +8,7 @@ import { LoginPage } from '@/features/auth/pages/login-page'
 import { PropertyListPage } from '@/features/properties/pages/property-list-page'
 import { PropertyDetailPage } from '@/features/properties/pages/property-detail-page'
 import { ClientRequestsPage } from '@/features/bookings/pages/client-requests-page'
+import { ClientRequestDetailPage } from '@/features/bookings/pages/client-request-detail-page'
 import { AgentBookingsPage } from '@/features/bookings/pages/agent-bookings-page'
 import { AdminDashboardPage } from '@/features/dashboard/pages/admin-dashboard-page'
 import { OverviewPage } from '@/features/dashboard/pages/overview-page'
@@ -41,7 +42,10 @@ export const router = createBrowserRouter([
           { path: '/properties/:id', element: <PropertyDetailPage /> },
           {
             element: <RoleGuard allow={[Roles.CLIENT]} />,
-            children: [{ path: '/client/requests', element: <ClientRequestsPage /> }],
+            children: [
+              { path: '/client/requests', element: <ClientRequestsPage /> },
+              { path: '/client/requests/:id', element: <ClientRequestDetailPage /> },
+            ],
           },
           {
             element: <RoleGuard allow={[Roles.AGENT]} />,

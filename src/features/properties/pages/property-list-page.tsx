@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MapPin } from 'lucide-react'
@@ -8,9 +9,14 @@ import { useMe } from '@/lib/auth/session'
 import { formatMoneyNGN } from '@/lib/formatters/money'
 
 export function PropertyListPage() {
+  const [listingFilter, setListingFilter] = useState<'ALL' | 'SALE' | 'RENT'>('ALL')
   const { data: user } = useMe()
   const isClient = user?.role === 'CLIENT'
-  const { data, isLoading } = useQuery({ queryKey: ['properties'], queryFn: fetchProperties })
+  const { data, isLoading } = useQuery({
+    queryKey: ['properties', listingFilter],
+    queryFn: () =>
+      fetchProperties(listingFilter === 'ALL' ? undefined : { listingCategory: listingFilter }),
+  })
 
   return (
     <section>
@@ -36,6 +42,28 @@ export function PropertyListPage() {
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Loading listings…</p>
       ) : null}
+
+      <div className="mb-5 flex flex-wrap items-center gap-2">
+        {[
+          { key: 'ALL' as const, label: 'All listings' },
+          { key: 'SALE' as const, label: 'Buy' },
+          { key: 'RENT' as const, label: 'Rent' },
+        ].map((item) => (
+          <button
+            className={[
+              'rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
+              listingFilter === item.key
+                ? 'border-sky-300 bg-sky-100 text-sky-950'
+                : 'border-sky-200 bg-white text-sky-800 hover:bg-sky-50',
+            ].join(' ')}
+            key={item.key}
+            onClick={() => setListingFilter(item.key)}
+            type="button"
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {data?.map((property) => {

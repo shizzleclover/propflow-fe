@@ -38,8 +38,14 @@ export type Property = {
   updatedAt?: string
 }
 
-export async function fetchProperties(): Promise<Property[]> {
-  const { data } = await api.get<{ properties: Property[] }>('/properties')
+export type PropertyFilters = {
+  listingCategory?: 'SALE' | 'RENT'
+}
+
+export async function fetchProperties(filters?: PropertyFilters): Promise<Property[]> {
+  const { data } = await api.get<{ properties: Property[] }>('/properties', {
+    params: filters,
+  })
   return data?.properties ?? []
 }
 
