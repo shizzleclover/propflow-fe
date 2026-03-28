@@ -19,6 +19,7 @@ import { StaffDashboardPage } from '@/features/dashboard/pages/staff-dashboard-p
 import { UserManagementPage } from '@/features/users/pages/user-management-page'
 import { RegisterPage } from '@/features/auth/pages/register-page'
 import { LandingPage } from '@/features/marketing/pages/landing-page'
+import { ClientAssistantPage } from '@/features/assistant/pages/client-assistant-page'
 
 export const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
             ],
           },
           { path: '/properties/:id', element: <PropertyDetailPage /> },
+          {
+            element: <RoleGuard allow={[Roles.CLIENT, Roles.ADMIN, Roles.AGENT]} />,
+            children: [{ path: '/client/assistant', element: <ClientAssistantPage /> }],
+          },
           {
             element: <RoleGuard allow={[Roles.CLIENT]} />,
             children: [

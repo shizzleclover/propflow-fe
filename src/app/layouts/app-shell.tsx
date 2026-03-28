@@ -13,6 +13,11 @@ function buildNav(role?: Role): ShellNavItem[] {
   return [
     { to: '/properties', label: role === 'CLIENT' ? 'Browse listings' : 'Properties' },
     { to: '/properties/new', label: 'Add listing', roles: ['ADMIN', 'AGENT'] },
+    {
+      to: '/client/assistant',
+      label: 'Find with assistant',
+      roles: ['CLIENT', 'ADMIN', 'AGENT'],
+    },
     { to: '/client/requests', label: 'My requests', roles: ['CLIENT'] },
     { to: '/staff/dashboard', label: 'Staff', roles: ['STAFF'] },
     { to: '/agent/bookings', label: 'Bookings', roles: ['AGENT'] },
