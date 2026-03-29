@@ -17,6 +17,7 @@ import { PropertyCreatePage } from '@/features/properties/pages/property-create-
 import { AdminListingsPage } from '@/features/properties/pages/admin-listings-page'
 import { StaffDashboardPage } from '@/features/dashboard/pages/staff-dashboard-page'
 import { UserManagementPage } from '@/features/users/pages/user-management-page'
+import { UserCreatePage } from '@/features/users/pages/user-create-page'
 import { RegisterPage } from '@/features/auth/pages/register-page'
 import { LandingPage } from '@/features/marketing/pages/landing-page'
 import { ClientAssistantPage } from '@/features/assistant/pages/client-assistant-page'
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
             children: [
               { path: '/admin/dashboard', element: <AdminDashboardPage /> },
               { path: '/admin/users', element: <UserManagementPage /> },
+              { path: '/admin/users/new', element: <UserCreatePage /> },
               { path: '/admin/listings', element: <AdminListingsPage /> },
             ],
           },

@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/shared/page-header'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteUser, fetchUsers, updateUser, type UserRow } from '@/features/users/api/users-api'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export function UserManagementPage() {
   const queryClient = useQueryClient()
@@ -48,6 +49,14 @@ export function UserManagementPage() {
   return (
     <section>
       <PageHeader
+        actions={
+          <Link
+            className="rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-700"
+            to="/admin/users/new"
+          >
+            Add New User
+          </Link>
+        }
         subtitle="View, edit, deactivate, and delete team accounts."
         title="User Management"
       />

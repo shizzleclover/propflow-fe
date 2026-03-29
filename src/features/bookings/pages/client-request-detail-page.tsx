@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { fetchBookingById, type Booking, type BookingSlot } from '@/features/bookings/api/bookings-api'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { fetchBookingById, addBookingMessage, type Booking, type BookingSlot } from '@/features/bookings/api/bookings-api'
 import { formatMoneyNGN } from '@/lib/formatters/money'
+import { useState } from 'react'
 
 function bookingSlotText(slot?: BookingSlot | null) {
   if (!slot) return '—'
@@ -27,11 +28,30 @@ function statusSummary(status: Booking['status']) {
 
 export function ClientRequestDetailPage() {
   const { id } = useParams<{ id: string }>()
+  const queryClient = useQueryClient()
+  const [message, setMessage] = useState('')
+  const [isSending, setIsSending] = useState(false)
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['client-request', id],
     queryFn: () => fetchBookingById(id!),
     enabled: Boolean(id),
   })
+
+  async function onSendMessage() {
+    if (!id || !message.trim()) return
+    setIsSending(true)
+    try {
+      await addBookingMessage(id, message.trim())
+      setMessage('')
+      await queryClient.invalidateQueries({ queryKey: ['client-request', id] })
+    } catch (error) {
+      console.error('Failed to send message:', error)
+      alert('Failed to send message.')
+    } finally {
+      setIsSending(false)
+    }
+  }
 
   if (!id) {
     return (
@@ -148,6 +168,53 @@ export function ClientRequestDetailPage() {
             Agent: <span className="font-medium text-foreground">{agent.name}</span> ({agent.email})
           </p>
         ) : null}
+
+        <div className="mt-10 border-t border-sky-100 pt-8">
+          <h3 className="text-lg font-semibold text-sky-950">Messages</h3>
+          <p className="text-sm text-muted-foreground">Communicate with your assigned agent below.</p>
+
+          <div className="mt-4 space-y-4">
+            {data.messages?.length ? (
+              <div className="flex flex-col gap-3">
+                {data.messages.map((msg, idx) => {
+                  const isMe = msg.role === 'CLIENT'
+                  return (
+                    <div className={['flex flex-col max-w-[80%]', isMe ? 'self-end items-end' : 'self-start items-start'].join(' ')} key={idx}>
+                      <div className={['rounded-2xl px-4 py-2 text-sm shadow-sm', isMe ? 'bg-sky-600 text-white rounded-tr-none' : 'bg-sky-50 text-sky-950 border border-sky-100 rounded-tl-none'].join(' ')}>
+                        {msg.text}
+                      </div>
+                      <span className="mt-1 text-[10px] text-muted-foreground">
+                        {isMe ? 'You' : agent?.name ?? msg.role} · {new Date(msg.createdAt).toLocaleTimeString()}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className="py-4 text-center text-sm italic text-muted-foreground">No messages yet.</p>
+            )}
+
+            <div className="mt-6">
+              <textarea
+                className="w-full rounded-xl border border-sky-200 bg-sky-50/30 p-3 text-sm outline-none ring-sky-500/20 transition-all focus:border-sky-500 focus:ring-4"
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your message to the agent…"
+                rows={3}
+                value={message}
+              />
+              <div className="mt-2 flex justify-end">
+                <button
+                  className="rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-sky-700 active:scale-95 disabled:pointer-events-none disabled:opacity-50"
+                  disabled={!message.trim() || isSending}
+                  onClick={onSendMessage}
+                  type="button"
+                >
+                  {isSending ? 'Sending…' : 'Send Message'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </article>
     </section>
   )

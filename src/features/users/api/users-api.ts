@@ -27,3 +27,13 @@ export async function updateUser(payload: { id: string; name?: string; status?: 
 export async function deleteUser(id: string): Promise<void> {
   await api.delete(`/users/${id}`)
 }
+
+export async function createUser(payload: {
+  name: string
+  email: string
+  role: string
+  password?: string
+}): Promise<UserRow> {
+  const { data } = await api.post<{ user: UserRow }>('/users', payload)
+  return data.user
+}
