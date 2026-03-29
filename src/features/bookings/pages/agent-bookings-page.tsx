@@ -11,7 +11,6 @@ import {
   type BookingSlot,
 } from '@/features/bookings/api/bookings-api'
 import { useState } from 'react'
-import { Roles } from '@/lib/constants/roles'
 
 function bookingSlotText(slot?: BookingSlot | null) {
   if (!slot) return '—'
